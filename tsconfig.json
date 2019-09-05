@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "outDir": "lib",
+    "target": "es2018"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

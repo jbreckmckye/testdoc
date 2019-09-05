@@ -4,12 +4,24 @@
   "description": "Turn JavaScript tests into documentation",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Please see tasksfile.js\"",
+    "task": "node ./tasksfile.js"
   },
   "keywords": [
     "test",
     "documentation"
   ],
   "author": "Jimmy Breck-McKye",
-  "license": "GPL-3.0-or-later"
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/glob": "7.1.1",
+    "@types/node": "12.7.4",
+    "tasksfile": "5.1.0",
+    "typescript": "3.6.2"
+  },
+  "dependencies": {
+    "babel": "6.23.0",
+    "glob": "7.1.4",
+    "react": "16.9.0"
+  }
 }
