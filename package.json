@@ -1,0 +1,15 @@
+{
+  "name": "test-doc",
+  "version": "1.0.0",
+  "description": "Turn JavaScript tests into documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test",
+    "documentation"
+  ],
+  "author": "Jimmy Breck-McKye",
+  "license": "GPL-3.0-or-later"
+}
