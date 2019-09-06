@@ -1,27 +1,54 @@
 {
   "name": "test-doc",
-  "version": "1.0.0",
   "description": "Turn JavaScript tests into documentation",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Please see tasksfile.js\"",
-    "task": "node ./tasksfile.js"
+  "version": "0.0.1",
+  "author": "jbreckmckye @jbreckmckye",
+  "bin": {
+    "testdoc": "./bin/run"
   },
-  "keywords": [
-    "test",
-    "documentation"
-  ],
-  "author": "Jimmy Breck-McKye",
-  "license": "GPL-3.0-or-later",
+  "bugs": "https://github.com/jbreckmckye/test-doc/issues",
+  "dependencies": {
+    "@babel/parser": "7.5.5",
+    "@babel/traverse": "7.5.5",
+    "@babel/types": "7.5.5",
+    "@oclif/command": "1.5.19",
+    "@oclif/config": "1.13.3",
+    "@oclif/plugin-help": "2.2.1",
+    "glob": "7.1.4"
+  },
   "devDependencies": {
+    "@oclif/test": "1.2.4",
+    "@types/babel__traverse": "7.0.7",
+    "@types/chai": "4.1.7",
     "@types/glob": "7.1.1",
-    "@types/node": "12.7.4",
-    "tasksfile": "5.1.0",
+    "@types/mocha": "5.2.7",
+    "@types/node": "10.14.17",
+    "rimraf": "3.0.0",
+    "ts-node": "6.2.0",
     "typescript": "3.6.2"
   },
-  "dependencies": {
-    "babel": "6.23.0",
-    "glob": "7.1.4",
-    "react": "16.9.0"
-  }
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ],
+  "homepage": "https://github.com/jbreckmckye/test-doc",
+  "keywords": [
+    "test",
+    "documentation",
+    "oclif"
+  ],
+  "license": "GPL=3.0-or-later",
+  "main": "lib/index.js",
+  "oclif": {
+    "bin": "testdoc"
+  },
+  "repository": "jbreckmckye/test-doc",
+  "scripts": {
+    "prepack": "rimraf lib && tsc -b",
+    "test-run-windows": "bin\\\\run.cmd ./test/examples/**.ts --typescript > debug.json"
+  },
+  "types": "lib/index.d.ts"
 }
