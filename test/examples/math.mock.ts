@@ -40,12 +40,3 @@ it('is an orphaned test', () => {
   (assert.ok as any)(true);
 });
 
-// file
-//  program
-//    body
-//      type expressionStatement
-//        expression type callexpression
-//          callee name describe
-//
-//        again, type expressionstatement
-//          callee name 'it', 'describe'

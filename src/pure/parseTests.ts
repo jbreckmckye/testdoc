@@ -1,4 +1,4 @@
-import {CallExpression, File, Identifier} from '@babel/types';
+import {CallExpression, Expression, File, Identifier} from '@babel/types';
 import traverse, {NodePath} from '@babel/traverse'
 
 import { AST } from './ast';
@@ -20,29 +20,27 @@ export function parseGroup (ast: AST, level: 'TestSuite' | 'TestGroup', name?: s
   };
 
   function appendGroup (path: NodePath<CallExpression>) {
-    const nameArg = path.node.arguments[0];
-
-    if (!nameArg) return;
-
-    const groupName = nameArg.type === 'StringLiteral'
-      ? nameArg.value
-      : 'Test';
-
+    const name = extractTitle(path);
     group.children.push(
-      parseGroup({...ast, path}, 'TestGroup', groupName)
+      parseGroup({...ast, path}, 'TestGroup', name)
     );
+  }
+
+  function appendItem (path: NodePath<CallExpression>) {
+    const name = extractTitle(path);
+    group.children.push(
+      {tag: 'TestItem', name}
+    )
   }
 
   const visitors = {
     CallExpression (path: NodePath<CallExpression>) {
-      const node = path.node;
-      if (
-        node.callee &&
-        node.callee.type === 'Identifier' &&
-        node.callee.name === 'describe'
-      ) {
+      if (isGroup(path.node.callee)) {
         path.skip();
         appendGroup(path);
+      } else if (isItem(path.node.callee)) {
+        path.skip();
+        appendItem(path);
       }
     }
   };
@@ -61,4 +59,23 @@ export function parseGroup (ast: AST, level: 'TestSuite' | 'TestGroup', name?: s
   }
 
   return group;
+}
+
+function isGroup (exp: Expression): boolean {
+  return isIdentifier(exp) && exp.name === 'describe';
+}
+
+function isItem (exp: Expression): boolean {
+  return isIdentifier(exp) && (exp.name === 'test' || exp.name === 'it');
+}
+
+function isIdentifier (exp: Expression): exp is Identifier {
+  return exp.type === 'Identifier'
+}
+
+function extractTitle (path: NodePath<CallExpression>): string {
+  const nameArg = path.node.arguments[0];
+  return (nameArg && nameArg.type === 'StringLiteral')
+    ? nameArg.value
+    : 'test';
 }
