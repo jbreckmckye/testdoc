@@ -1,8 +1,8 @@
 import { ParserPlugin } from '@babel/parser';
 
-import { read } from './effects/read';
-import { getASTs } from './pure/ast';
-import { parseAll } from './pure/parseTests';
+import { getPaths, readOne } from './effects/read';
+import { getAST } from './pure/ast';
+import { parseGroup, aggregateGroups } from './pure/parseTests';
 
 export interface Options {
   fileMatch: string,
@@ -10,11 +10,19 @@ export interface Options {
 }
 
 export async function testDoc (options: Options): Promise<void> {
-  const files = await read(options.fileMatch);
-  const ASTs = getASTs(files, {
+  const filePaths = await getPaths(options.fileMatch);
+  const babelOpts = {
     plugins: options.parsers
-  });
-  const testASTs = parseAll(ASTs);
-  console.log(JSON.stringify(testASTs, null, 2))
+  };
+
+  const parses = filePaths.map((path: string) =>
+    readOne(path)
+      .then(file => getAST(file, babelOpts))
+      .then(ast => parseGroup(ast, true))
+  );
+
+  const testSuites = await Promise.all(parses);
+  const result = aggregateGroups(testSuites);
+  console.log(JSON.stringify(result, null, 2))
 
 }

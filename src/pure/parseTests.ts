@@ -3,18 +3,16 @@ import traverse, {NodePath} from '@babel/traverse'
 
 import { AST } from './ast';
 
-export function parseAll (ASTs: Array<AST>): TestGroup {
+export function aggregateGroups (groups: Array<TestGroup>): TestGroup {
   return {
     tag: 'AllTests',
-    children: ASTs.map(ast =>
-      parseGroup(ast, 'TestSuite')
-    )
-  }
+    children: groups
+  };
 }
 
-export function parseGroup (ast: AST, level: 'TestSuite' | 'TestGroup', name?: string): TestGroup {
+export function parseGroup (ast: AST, topLevel: boolean = false, name?: string): TestGroup {
   const group: TestGroup = {
-    tag: level,
+    tag: topLevel ? 'TestSuite' : 'TestGroup',
     name: name || ast.file.path,
     children: []
   };
@@ -22,7 +20,7 @@ export function parseGroup (ast: AST, level: 'TestSuite' | 'TestGroup', name?: s
   function appendGroup (path: NodePath<CallExpression>) {
     const name = extractTitle(path);
     group.children.push(
-      parseGroup({...ast, path}, 'TestGroup', name)
+      parseGroup({...ast, path}, false, name)
     );
   }
 
@@ -51,7 +49,7 @@ export function parseGroup (ast: AST, level: 'TestSuite' | 'TestGroup', name?: s
     });
 
   } else {
-
+    // Recursive calls need to have the scope and parentpath threaded back through
     const path = ast.path as NodePath;
     traverse(path.node, {
       ...visitors
