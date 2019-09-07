@@ -6,6 +6,7 @@ import { AST } from './ast';
 export function aggregateGroups (groups: Array<TestGroup>): TestGroup {
   return {
     tag: 'AllTests',
+    name: 'Test Suite',
     children: groups
   };
 }

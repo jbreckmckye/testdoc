@@ -14,7 +14,7 @@ describe('The Math object', () => {
     expect(shouldFail).toThrow();
   });
 
-  describe('E', ()=> {
+  describe('Math.E', ()=> {
     it('is a number', done => {
       expect(typeof Math.E).toBe('number');
       done();
@@ -25,7 +25,7 @@ describe('The Math object', () => {
     });
   });
 
-  describe('Max', () => {
+  describe('Math.Max', () => {
     describe('with correct args', () => {
       it('returns the greater', ()=> {
         const x = Math.max(1, 2);

@@ -7,12 +7,6 @@ export interface AST {
   file: FileRef
 }
 
-export function getASTs (files: Array<FileRef>, babelOptions: ParserOptions): Array<AST> {
-  return files.map(file =>
-    getAST(file, babelOptions)
-  );
-}
-
 export function getAST (file: FileRef, babelOptions: ParserOptions): AST {
   return {
     path: parseBabel(file.contents, babelOptions),

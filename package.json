@@ -48,7 +48,7 @@
   "repository": "jbreckmckye/test-doc",
   "scripts": {
     "prepack": "rimraf lib && tsc -b",
-    "test-run-windows": "bin\\\\run.cmd ./test/examples/**.ts --typescript > debug.json"
+    "test-run-windows": "bin\\\\run.cmd ./test/examples/**.ts --typescript > debug.md"
   },
   "types": "lib/index.d.ts"
 }

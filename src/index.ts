@@ -46,6 +46,7 @@ class TestDoc extends Command {
 
     await testDoc({
       fileMatch: args.files,
+      outputFile: flags.outputFile || 'TESTS.md',
       parsers
     });
   }
