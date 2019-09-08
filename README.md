@@ -40,9 +40,9 @@ See the [examples](test/examples) directory for more details.
 ## Installing
 
 ```
-npm install testdoc
+npm install @jbreckmckye/testdoc
 [or]
-yarn add testdoc
+yarn add @jbreckmckye/testdoc
 ```
 
 ## CLI
