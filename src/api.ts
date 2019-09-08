@@ -1,9 +1,11 @@
 import { ParserPlugin } from '@babel/parser';
 
-import { getPaths, readOne } from './effects/read';
 import { getAST } from './pure/ast';
 import { parseGroup, aggregateGroups } from './pure/parseTests';
 import { template } from "./pure/template";
+
+import { getPaths, readOne } from './effects/read';
+import { write } from './effects/write';
 
 export interface Options {
   fileMatch: string,
@@ -28,6 +30,5 @@ export async function testDoc (options: Options): Promise<void> {
 
   const documentation = template(result);
 
-  console.log(documentation);
-  console.log(JSON.stringify(result, null, 2));
+  await write(options.outputFile, documentation);
 }
