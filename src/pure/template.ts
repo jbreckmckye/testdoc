@@ -13,9 +13,7 @@ function templateGroup (group: TestGroup, level: number = 1): Array<string> {
   if (group.children.length === 0) {
     return [
       header,
-      '',
-      'No tests',
-      ''
+      'No tests'
     ];
   }
 
@@ -32,7 +30,6 @@ function templateGroup (group: TestGroup, level: number = 1): Array<string> {
     header,
     '',
     ...(childItems.length ? itemRender : []),
-    '',
     ...(groupRender.length ? groupRender : []),
     ''
   ]

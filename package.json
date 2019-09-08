@@ -40,7 +40,7 @@
     "documentation",
     "oclif"
   ],
-  "license": "GPL=3.0-or-later",
+  "license": "AGPL-3.0-only",
   "main": "lib/index.js",
   "oclif": {
     "bin": "testdoc"
@@ -48,7 +48,8 @@
   "repository": "jbreckmckye/test-doc",
   "scripts": {
     "prepack": "rimraf lib && tsc -b",
-    "test-run-windows": "bin\\\\run.cmd ./test/examples/**.ts --typescript > debug.md"
+    "test-run-windows": "bin\\\\run.cmd ./test/examples/**.ts --typescript > debug.md",
+    "test-help-windows": "bin\\\\run.cmd --help"
   },
   "types": "lib/index.d.ts"
 }
